@@ -4,14 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { TarefaService } from 'src/app/service/tarefa.service';
 import { Tarefa } from '../interface/tarefa';
-import { state, style, trigger } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-lista-tarefas',
   templateUrl: './lista-tarefas.component.html',
   styleUrls: ['./lista-tarefas.component.css'],
-  // Para adicionar animação precisamos do trigger, em seguida precisamos passa um nome para animação e um array de metadados
-  // trigger é como um gatilho para alterar o estado de um obj
   animations: [trigger('estadoDestacado', [
     state('default', style({
       border: '2px solid #B2B6FF'
@@ -19,7 +17,14 @@ import { state, style, trigger } from '@angular/animations';
     state('destacado', style({
       border: '4px solid #B2B6FF',
       filter: 'brightness(92%)'
-    }))
+    })),
+    transition('default => destacado', [
+      style({
+        transform: 'scale(1.02)'
+      }),
+      animate(200)
+    ]),
+
   ])]
 })
 export class ListaTarefasComponent implements OnInit {
